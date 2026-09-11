@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 468" width="880" height="468" role="img" aria-labelledby="t d">
+  <title id="t">git worktree の前後比較</title>
+  <desc id="d">上: これまでの通常の clone では .git と 1 つのフォルダ repo/ があり、main などのブランチを checkout で入れ替えるため、同時に触れるブランチは 1 つ。下: git worktree（Orca が自動で作る）では 1 つの .git から ~/Documents/orca-handson/（main、プライマリ）、~/orca/workspaces/orca-handson/fix-tests-claude/（ブランチ &lt;ID&gt;/fix-tests-claude、Claude Code）、~/orca/workspaces/orca-handson/fix-tests-codex/（ブランチ &lt;ID&gt;/fix-tests-codex、Codex）の 3 つのフォルダが分かれる。右の GitHub（origin）には main と、公開後にできる &lt;ID&gt;/fix-tests-codex がある。タスク 1 つ = worktree 1 つ。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606A"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif; fill: #1F2328; }
+      .title { font-size: 20px; font-weight: bold; }
+      .head { font-size: 15px; font-weight: 600; }
+      .body { font-size: 13px; }
+      .b600 { font-size: 13px; font-weight: 600; }
+      .cap { font-size: 12px; fill: #57606A; }
+      .lab { font-size: 12px; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+      .mono12 { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+      .mid { text-anchor: middle; }
+      .panel { fill: #F6F8FA; stroke: #D0D7DE; stroke-width: 1; }
+      .gitbox { fill: #FBEFFF; stroke: #8250DF; stroke-width: 1.5; }
+      .arrow { fill: none; stroke: #57606A; stroke-width: 1.75; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+
+  <!-- 背景カード -->
+  <rect x="0.5" y="0.5" width="879" height="467" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+
+  <!-- タイトル -->
+  <text x="24" y="40" class="title">git worktree: ブランチごとに別のフォルダを持てる</text>
+  <text x="24" y="62" class="cap">Orca の「ワークツリー」は git worktree そのもの。1 つの .git を共有し、フォルダだけが分かれる</text>
+
+  <!-- 上パネル: これまで -->
+  <rect x="24" y="76" width="608" height="128" rx="12" class="panel"/>
+  <text x="40" y="100" class="head">これまで: 通常の clone</text>
+
+  <rect x="40" y="124" width="80" height="48" rx="8" class="gitbox"/>
+  <text x="80" y="144" class="mono mid" font-weight="600">.git</text>
+  <text x="80" y="161" class="cap mid">履歴</text>
+  <path d="M120,148 H152" class="arrow"/>
+
+  <rect x="152" y="124" width="240" height="48" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+  <text x="168" y="153" class="mono">repo/</text>
+  <rect x="232" y="136" width="56" height="24" rx="999" fill="#FBEFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="260" y="152" class="mono12 mid">main</text>
+  <text x="304" y="152" class="cap">← 1 つだけ</text>
+  <text x="152" y="192" class="cap">⟳ 別のブランチは checkout で入れ替える</text>
+
+  <rect x="408" y="134" width="208" height="28" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1"/>
+  <text x="512" y="153" class="b600 mid">同時に触れるブランチは 1 つ</text>
+
+  <!-- 凡例 -->
+  <rect x="656" y="76" width="200" height="128" rx="12" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1"/>
+  <text x="672" y="100" class="b600">凡例</text>
+  <rect x="672" y="114" width="14" height="14" rx="3" fill="#FBEFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="694" y="125" class="lab">ブランチ（git）</text>
+  <rect x="672" y="136" width="14" height="14" rx="3" fill="#FFF1E5" stroke="#D97757" stroke-width="1.5"/>
+  <text x="694" y="147" class="lab">Claude Code が作業</text>
+  <rect x="672" y="158" width="14" height="14" rx="3" fill="#DDF4FF" stroke="#0969DA" stroke-width="1.5"/>
+  <text x="694" y="169" class="lab">Codex が作業</text>
+  <rect x="672" y="180" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#57606A" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="694" y="191" class="lab">破線 = 公開後にできる</text>
+
+  <!-- 下パネル: git worktree -->
+  <rect x="24" y="220" width="608" height="224" rx="12" class="panel"/>
+  <text x="40" y="244" class="head">git worktree（Orca が自動で作る）</text>
+
+  <rect x="40" y="314" width="80" height="48" rx="8" class="gitbox"/>
+  <text x="80" y="334" class="mono mid" font-weight="600">.git</text>
+  <text x="80" y="351" class="cap mid">1 つだけ</text>
+  <path d="M120,338 H140 V282 H160" class="arrow"/>
+  <path d="M120,338 H160" class="arrow"/>
+  <path d="M140,338 V394 H160" class="arrow"/>
+
+  <!-- 行 1: main（プライマリ） -->
+  <rect x="160" y="260" width="448" height="44" rx="8" fill="#FFFFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="172" y="287" class="mono">~/Documents/orca-handson/</text>
+  <rect x="384" y="270" width="52" height="24" rx="999" fill="#FBEFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="410" y="286" class="mono12 mid">main</text>
+  <rect x="444" y="270" width="80" height="24" rx="999" fill="#FFFFFF" stroke="#8250DF" stroke-width="1"/>
+  <text x="484" y="286" class="lab mid" fill="#8250DF">プライマリ</text>
+
+  <!-- 行 2: fix-tests-claude -->
+  <rect x="160" y="316" width="448" height="44" rx="8" fill="#FFFFFF" stroke="#D97757" stroke-width="1.5"/>
+  <text x="172" y="333" class="mono12">~/orca/workspaces/orca-handson/</text>
+  <text x="172" y="350" class="mono12">fix-tests-claude/</text>
+  <rect x="408" y="326" width="192" height="24" rx="999" fill="#FFF1E5" stroke="#D97757" stroke-width="1.5"/>
+  <text x="504" y="342" class="mono12 mid">&lt;ID&gt;/fix-tests-claude</text>
+
+  <!-- 行 3: fix-tests-codex -->
+  <rect x="160" y="372" width="448" height="44" rx="8" fill="#FFFFFF" stroke="#0969DA" stroke-width="1.5"/>
+  <text x="172" y="389" class="mono12">~/orca/workspaces/orca-handson/</text>
+  <text x="172" y="406" class="mono12">fix-tests-codex/</text>
+  <rect x="408" y="382" width="192" height="24" rx="999" fill="#DDF4FF" stroke="#0969DA" stroke-width="1.5"/>
+  <text x="504" y="398" class="mono12 mid">&lt;ID&gt;/fix-tests-codex</text>
+
+  <text x="160" y="436" class="b600">タスク 1 つ = worktree 1 つ。フォルダが別なので、同時に動かせる</text>
+
+  <!-- 右: GitHub（origin） -->
+  <rect x="656" y="220" width="200" height="224" rx="12" fill="#FFFFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="756" y="246" class="b600 mid">GitHub（origin）</text>
+  <text x="756" y="264" class="cap mid">自分のアカウントのリポ</text>
+
+  <path d="M656,282 H608" class="arrow"/>
+  <text x="632" y="276" class="cap mid">clone</text>
+  <rect x="726" y="270" width="60" height="24" rx="999" fill="#FBEFFF" stroke="#8250DF" stroke-width="1.5"/>
+  <text x="756" y="286" class="mono12 mid">main</text>
+
+  <text x="756" y="334" class="cap mid">PR はここで作る（11 章）</text>
+
+  <path d="M608,394 H656" class="arrow dashed"/>
+  <text x="632" y="386" class="cap mid">push</text>
+  <rect x="664" y="382" width="184" height="24" rx="999" fill="#DDF4FF" stroke="#0969DA" stroke-width="1.5" class="dashed"/>
+  <text x="756" y="398" class="mono12 mid">&lt;ID&gt;/fix-tests-codex</text>
+  <text x="756" y="424" class="cap mid">公開後にできる（11 章）</text>
+</svg>

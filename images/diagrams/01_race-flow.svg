@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" role="img" aria-labelledby="t d">
+  <title id="t">Orca ハンズオンのレースの流れ</title>
+  <desc id="d">main から同じプロンプトを Claude Code と Codex の 2 つのワークツリーに出し、差分を見比べて良い方を選ぶ。採用した方だけを行にメモして Send し、Commit、ブランチを公開、PR を作成して PR #1 にする。不採用の方はワークツリーを削除する。各段の上に 02_handson.md の章番号を示す。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606A"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif; fill: #1F2328; }
+      .title { font-size: 20px; font-weight: bold; }
+      .head { font-size: 15px; font-weight: 600; }
+      .body { font-size: 13px; }
+      .cap { font-size: 12px; fill: #57606A; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+      .mono12 { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+      .mid { text-anchor: middle; }
+      .box { stroke-width: 1.5; }
+      .arrow { fill: none; stroke: #57606A; stroke-width: 1.75; marker-end: url(#arrow); }
+      .join { fill: none; stroke: #57606A; stroke-width: 1.75; }
+      .rejected { stroke-dasharray: 5 4; }
+      .bracket { fill: none; stroke: #D0D7DE; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- 背景カード -->
+  <rect x="0.5" y="0.5" width="879" height="459" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+
+  <!-- タイトル -->
+  <text x="24" y="40" class="title">レースの流れ: 同じ指示を 2 つに出し、選んだ 1 つだけを PR にする</text>
+
+  <!-- 1 段目: 章番号（ロードマップ） -->
+  <text x="24" y="76" class="cap">5–6 章</text>
+  <text x="164" y="76" class="cap">7 章</text>
+  <path d="M164,88 V84 H472 V88" class="bracket"/>
+  <text x="508" y="76" class="cap">9 章</text>
+  <path d="M508,88 V84 H744 V88" class="bracket"/>
+
+  <!-- 1 段目: main（プライマリ） -->
+  <rect x="24" y="134" width="104" height="56" rx="8" fill="#FBEFFF" stroke="#8250DF" class="box"/>
+  <text x="76" y="158" class="mono mid" font-weight="bold">main</text>
+  <rect x="36" y="164" width="80" height="18" rx="999" fill="#FFFFFF" stroke="#8250DF" stroke-width="1"/>
+  <text x="76" y="177" class="cap mid" fill="#8250DF">プライマリ</text>
+
+  <!-- 1 段目: 同じプロンプト -->
+  <path d="M128,162 H164" class="arrow"/>
+  <rect x="164" y="134" width="128" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="228" y="158" class="head mid">同じプロンプト</text>
+  <text x="228" y="177" class="cap mid">1 つの指示文を 2 つに</text>
+
+  <!-- 1 段目: 2 レーン -->
+  <path d="M292,162 H310 V126 H328" class="arrow"/>
+  <path d="M310,162 V198 H328" class="arrow"/>
+  <rect x="328" y="100" width="144" height="52" rx="8" fill="#FFF1E5" stroke="#D97757" class="box"/>
+  <text x="400" y="122" class="mono12 mid">fix-tests-claude</text>
+  <text x="400" y="139" class="cap mid">Claude Code</text>
+  <rect x="328" y="172" width="144" height="52" rx="8" fill="#DDF4FF" stroke="#0969DA" class="box"/>
+  <text x="400" y="194" class="mono12 mid">fix-tests-codex</text>
+  <text x="400" y="211" class="cap mid">Codex</text>
+
+  <!-- 1 段目: 合流 → 差分を見比べる -->
+  <path d="M472,126 H490 V162 H508" class="arrow"/>
+  <path d="M472,198 H490 V162" class="join"/>
+  <rect x="508" y="134" width="96" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="556" y="158" class="body mid">差分を</text>
+  <text x="556" y="176" class="body mid">見比べる</text>
+
+  <!-- 1 段目: 良い方を選ぶ（分岐） -->
+  <path d="M604,162 H632" class="arrow"/>
+  <path d="M688,118 L744,162 L688,206 L632,162 Z" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="688" y="158" class="body mid">良い方を</text>
+  <text x="688" y="176" class="body mid">選ぶ</text>
+
+  <!-- 採用の経路（バス線）: 2 段目の先頭へ -->
+  <path d="M688,206 V256 H112 V312" class="arrow"/>
+  <text x="700" y="238" class="cap">採用</text>
+  <text x="400" y="250" class="cap mid">採用した方だけ、次の段へ進む</text>
+
+  <!-- 不採用の経路（破線） -->
+  <path d="M744,162 H804 V312" class="arrow rejected"/>
+  <text x="774" y="154" class="cap mid">不採用</text>
+
+  <!-- 2 段目: 章番号 -->
+  <text x="56" y="290" class="cap">10 章</text>
+  <text x="200" y="290" class="cap">11 章</text>
+  <path d="M200,302 V298 H696 V302" class="bracket"/>
+  <text x="752" y="290" class="cap">12 章</text>
+
+  <!-- 2 段目: 行にメモ → Send -->
+  <rect x="56" y="312" width="112" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="112" y="336" class="body mid">行にメモ</text>
+  <text x="112" y="354" class="body mid">→ Send</text>
+
+  <!-- 2 段目: Commit → ブランチを公開 → PR を作成 → PR #1 -->
+  <path d="M168,340 H200" class="arrow"/>
+  <rect x="200" y="312" width="88" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="244" y="345" class="body mid">Commit</text>
+  <path d="M288,340 H320" class="arrow"/>
+  <rect x="320" y="312" width="128" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="384" y="345" class="body mid">ブランチを公開</text>
+  <path d="M448,340 H480" class="arrow"/>
+  <rect x="480" y="312" width="96" height="56" rx="8" fill="#F6F8FA" stroke="#D0D7DE" class="box"/>
+  <text x="528" y="345" class="body mid">PR を作成</text>
+  <path d="M576,340 H608" class="arrow"/>
+  <rect x="608" y="312" width="88" height="56" rx="8" fill="#DAFBE1" stroke="#1A7F37" class="box"/>
+  <text x="652" y="345" class="head mid" fill="#1A7F37">PR #1</text>
+
+  <!-- 2 段目: ワークツリー削除（不採用） -->
+  <rect x="752" y="312" width="104" height="56" rx="8" fill="#F6F8FA" stroke="#57606A" class="box rejected"/>
+  <text x="804" y="336" class="body mid">ワークツリー</text>
+  <text x="804" y="354" class="body mid">削除</text>
+
+  <!-- 下帯: ポイント -->
+  <rect x="24" y="392" width="832" height="44" rx="8" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+  <text x="40" y="419" class="body" font-weight="600">ポイント:</text>
+  <text x="102" y="419" class="body">同じ指示を 2 つのワークツリーに出す → 差分を見比べて 1 つを選ぶ → 選んだ 1 つだけが PR になる</text>
+</svg>

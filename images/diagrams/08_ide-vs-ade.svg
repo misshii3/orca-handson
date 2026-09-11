@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 432" width="880" height="432" role="img" aria-labelledby="title desc">
+  <title id="title">IDE と ADE の違い</title>
+  <desc id="desc">左は IDE。あなたが 1 つのエディタで main ブランチのコードを自分で書く。右は ADE（Orca）。あなたはレビュアーになり、ワークツリーごとの作業台で Claude や Codex などのエージェントが並行して書く。指示を下ろし、差分と報告を受け取り、差分を読んでコメントを返し、良い方を採用する。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#57606A"/>
+    </marker>
+  </defs>
+  <!-- 背景カード -->
+  <rect x="0.5" y="0.5" width="879" height="431" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif" fill="#1F2328" font-size="13">
+    <text x="24" y="40" font-size="20" font-weight="700">IDE と ADE の違い</text>
+    <text x="856" y="40" text-anchor="end" font-size="12" fill="#57606A">ADE = Agent Development Environment（エージェント開発環境）</text>
+
+    <!-- 左: IDE -->
+    <rect x="24" y="64" width="296" height="344" rx="12" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+    <text x="40" y="89" font-size="15" font-weight="600">IDE</text>
+    <text x="72" y="89" font-size="12" fill="#57606A">統合開発環境</text>
+    <text x="304" y="89" font-size="12" fill="#57606A" text-anchor="end">1 人・1 机・1 エディタ</text>
+    <!-- 人（あなた） -->
+    <circle cx="172" cy="124" r="11" fill="#F6F8FA" stroke="#1F2328" stroke-width="1.5"/>
+    <path d="M146 162v-6a26 18 0 0 1 52 0v6z" fill="#F6F8FA" stroke="#1F2328" stroke-width="1.5"/>
+    <text x="206" y="150" font-weight="600">あなた</text>
+    <!-- 書く矢印 -->
+    <line x1="172" y1="168" x2="172" y2="230" stroke="#57606A" stroke-width="1.75" marker-end="url(#arrow)"/>
+    <text x="182" y="204" font-size="12">自分が書く</text>
+    <!-- エディタ -->
+    <rect x="64" y="232" width="216" height="116" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+    <path d="M64 240a8 8 0 0 1 8-8h200a8 8 0 0 1 8 8v12H64z" fill="#F6F8FA"/>
+    <line x1="64" y1="252" x2="280" y2="252" stroke="#D0D7DE"/>
+    <text x="76" y="246" font-size="11" fill="#57606A">エディタ</text>
+    <rect x="224" y="234" width="48" height="16" rx="999" fill="#FBEFFF" stroke="#8250DF"/>
+    <text x="248" y="246" font-size="11" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">main</text>
+    <g fill="#D0D7DE">
+      <rect x="76" y="264" width="120" height="4" rx="2"/>
+      <rect x="76" y="276" width="88" height="4" rx="2"/>
+      <rect x="76" y="288" width="150" height="4" rx="2"/>
+      <rect x="76" y="300" width="60" height="4" rx="2"/>
+      <rect x="76" y="312" width="110" height="4" rx="2"/>
+      <rect x="76" y="324" width="80" height="4" rx="2"/>
+    </g>
+    <text x="40" y="376">● コードは自分が書く</text>
+    <text x="40" y="398">● 同時に触れるブランチは 1 つ</text>
+
+    <!-- 右: ADE（Orca） -->
+    <rect x="344" y="64" width="512" height="344" rx="12" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+    <text x="360" y="89" font-size="15" font-weight="600">ADE（Orca）</text>
+    <text x="840" y="89" font-size="12" fill="#57606A" text-anchor="end">エージェントが書き、あなたが見る</text>
+    <!-- 人（あなた＝レビュアー） -->
+    <circle cx="600" cy="124" r="11" fill="#F6F8FA" stroke="#1F2328" stroke-width="1.5"/>
+    <path d="M574 162v-6a26 18 0 0 1 52 0v6z" fill="#F6F8FA" stroke="#1F2328" stroke-width="1.5"/>
+    <text x="634" y="150" font-weight="600">あなた＝レビュアー</text>
+    <!-- 指示（下向き）・差分・報告（上向き） -->
+    <line x1="584" y1="168" x2="584" y2="230" stroke="#57606A" stroke-width="1.75" marker-end="url(#arrow)"/>
+    <text x="576" y="204" font-size="12" text-anchor="end">指示</text>
+    <line x1="616" y1="230" x2="616" y2="168" stroke="#57606A" stroke-width="1.75" marker-end="url(#arrow)"/>
+    <text x="624" y="204" font-size="12">差分・報告</text>
+    <!-- 作業台（ワークツリー）の群 -->
+    <rect x="360" y="232" width="480" height="116" rx="8" fill="none" stroke="#57606A" stroke-dasharray="6 3"/>
+    <text x="368" y="226" font-size="12" fill="#57606A">作業台 = ワークツリー（並行）</text>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+      <!-- 作業台 1: Claude -->
+      <rect x="370" y="242" width="148" height="96" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+      <text x="382" y="264" font-size="13" font-weight="700" fill="#57606A">&gt;_</text>
+      <rect x="446" y="250" width="64" height="18" rx="999" fill="#FFF1E5" stroke="#D97757"/>
+      <text x="478" y="263" font-size="11" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">Claude</text>
+      <text x="382" y="287" font-size="10.5" fill="#57606A">fix-tests-claude</text>
+      <rect x="382" y="298" width="124" height="28" rx="4" fill="#F6F8FA" stroke="#D0D7DE"/>
+      <text x="388" y="317" font-size="10" fill="#57606A">diff</text>
+      <rect x="414" y="304" width="44" height="6" rx="1" fill="#FFEBE9" stroke="#CF222E" stroke-width="0.75"/>
+      <rect x="414" y="314" width="72" height="6" rx="1" fill="#DAFBE1" stroke="#1A7F37" stroke-width="0.75"/>
+      <!-- 作業台 2: Codex -->
+      <rect x="526" y="242" width="148" height="96" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+      <text x="538" y="264" font-size="13" font-weight="700" fill="#57606A">&gt;_</text>
+      <rect x="606" y="250" width="60" height="18" rx="999" fill="#DDF4FF" stroke="#0969DA"/>
+      <text x="636" y="263" font-size="11" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">Codex</text>
+      <text x="538" y="287" font-size="10.5" fill="#57606A">fix-tests-codex</text>
+      <rect x="538" y="298" width="124" height="28" rx="4" fill="#F6F8FA" stroke="#D0D7DE"/>
+      <text x="544" y="317" font-size="10" fill="#57606A">diff</text>
+      <rect x="570" y="304" width="36" height="6" rx="1" fill="#FFEBE9" stroke="#CF222E" stroke-width="0.75"/>
+      <rect x="570" y="314" width="60" height="6" rx="1" fill="#DAFBE1" stroke="#1A7F37" stroke-width="0.75"/>
+      <!-- 作業台 3: … -->
+      <rect x="682" y="242" width="148" height="96" rx="8" fill="#FFFFFF" stroke="#D0D7DE" stroke-width="1.5"/>
+      <text x="694" y="264" font-size="13" font-weight="700" fill="#57606A">&gt;_</text>
+      <rect x="774" y="250" width="48" height="18" rx="999" fill="#F6F8FA" stroke="#D0D7DE"/>
+      <text x="798" y="263" font-size="11" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">…</text>
+      <text x="694" y="287" font-size="10.5" fill="#57606A">別のタスク…</text>
+      <rect x="694" y="298" width="124" height="28" rx="4" fill="#F6F8FA" stroke="#D0D7DE"/>
+      <text x="700" y="317" font-size="10" fill="#57606A">diff</text>
+      <rect x="726" y="304" width="56" height="6" rx="1" fill="#FFEBE9" stroke="#CF222E" stroke-width="0.75"/>
+      <rect x="726" y="314" width="40" height="6" rx="1" fill="#DAFBE1" stroke="#1A7F37" stroke-width="0.75"/>
+    </g>
+    <text x="360" y="376">● 差分を読む・コメントを返す・良い方を採用する</text>
+    <text x="360" y="398">● 同時に複数のブランチ（ワークツリー）で進む</text>
+  </g>
+</svg>

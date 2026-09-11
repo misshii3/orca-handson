@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 468" width="880" height="468" role="img" aria-labelledby="t d">
+  <title id="t">権限に関わる 3 つの層</title>
+  <desc id="d">1 層目は Orca の設定「Agent の権限」。Yolo なら claude --dangerously-skip-permissions と codex --dangerously-bypass-approvals-and-sandbox、手動なら claude と codex を起動する。起動コマンドにフラグを付けるかどうかだけを決める。2 層目はエージェント自身の権限モード。Claude Code は Shift+Tab で切り替え（既定は毎回確認）、Codex は /approvals。確認プロンプトを出すかはここで決まる。3 層目は macOS のフォルダアクセスの許可ダイアログで、保護フォルダを読むと OS が出す。Orca の設定とは無関係。ハンズオンでは 1 層目は手動、2 層目は既定のまま、3 層目はリポジトリの場所を許可する。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606A"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif; fill: #1F2328; }
+      .title { font-size: 20px; font-weight: bold; }
+      .head { font-size: 15px; font-weight: 600; }
+      .body { font-size: 13px; }
+      .cap { font-size: 12px; fill: #57606A; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+      .mono12 { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+      .mid { text-anchor: middle; }
+      .chip { font-size: 13px; font-weight: 600; text-anchor: middle; }
+      .band { fill: #F6F8FA; stroke: #D0D7DE; stroke-width: 1; }
+      .arrow { fill: none; stroke: #57606A; stroke-width: 1.75; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <!-- 背景カード -->
+  <rect x="0.5" y="0.5" width="879" height="467" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+
+  <!-- タイトル -->
+  <text x="24" y="40" class="title">「権限」は 3 つの層で別々に決まる</text>
+  <text x="24" y="62" class="cap">Orca の「手動」にしても、エージェント自身のモードと macOS の許可は別の話。混同しないこと</text>
+
+  <!-- 1 層目: Orca の設定 -->
+  <rect x="24" y="80" width="640" height="148" rx="12" class="band"/>
+  <rect x="40" y="92" width="56" height="20" rx="999" fill="#FFFFFF" stroke="#57606A" stroke-width="1"/>
+  <text x="68" y="106" class="cap mid" fill="#1F2328">1 層目</text>
+  <text x="108" y="107" class="head">Orca: 設定 → Agent →『Agent の権限』</text>
+
+  <rect x="40" y="126" width="64" height="24" rx="999" fill="#FFF8C5" stroke="#BF8700" stroke-width="1.5"/>
+  <text x="72" y="143" class="chip" fill="#7D4E00">Yolo</text>
+  <path d="M112,138 H136" class="arrow"/>
+  <text x="144" y="134" class="mono12">claude --dangerously-skip-permissions</text>
+  <text x="144" y="151" class="mono12">codex --dangerously-bypass-approvals-and-sandbox</text>
+
+  <rect x="40" y="166" width="64" height="24" rx="999" fill="#DAFBE1" stroke="#1A7F37" stroke-width="1.5"/>
+  <text x="72" y="183" class="chip" fill="#1A7F37">手動</text>
+  <path d="M112,178 H136" class="arrow"/>
+  <text x="144" y="174" class="mono12">claude</text>
+  <text x="144" y="191" class="mono12">codex</text>
+  <text x="240" y="183" class="cap">（フラグなし。エージェントは自分の既定モードで動く）</text>
+
+  <text x="40" y="216" class="cap">起動コマンドにフラグを付けるかどうか、だけを決める</text>
+
+  <!-- 2 層目: エージェント自身の権限モード -->
+  <rect x="24" y="244" width="640" height="100" rx="12" class="band"/>
+  <rect x="40" y="256" width="56" height="20" rx="999" fill="#FFFFFF" stroke="#57606A" stroke-width="1"/>
+  <text x="68" y="270" class="cap mid" fill="#1F2328">2 層目</text>
+  <text x="108" y="271" class="head">エージェント自身の権限モード</text>
+
+  <rect x="40" y="288" width="112" height="24" rx="999" fill="#FFF1E5" stroke="#D97757" stroke-width="1.5"/>
+  <text x="96" y="305" class="chip" fill="#9A4A2B">Claude Code</text>
+  <text x="164" y="305" class="body">Shift+Tab で切替（既定=毎回確認）</text>
+
+  <rect x="436" y="288" width="72" height="24" rx="999" fill="#DDF4FF" stroke="#0969DA" stroke-width="1.5"/>
+  <text x="472" y="305" class="chip" fill="#0969DA">Codex</text>
+  <text x="520" y="305" class="mono">/approvals</text>
+
+  <text x="40" y="332" class="cap">確認プロンプトを出すかは、ここで決まる</text>
+
+  <!-- 3 層目: macOS -->
+  <rect x="24" y="360" width="640" height="84" rx="12" class="band"/>
+  <rect x="40" y="372" width="56" height="20" rx="999" fill="#FFFFFF" stroke="#57606A" stroke-width="1"/>
+  <text x="68" y="386" class="cap mid" fill="#1F2328">3 層目</text>
+  <text x="108" y="387" class="head">macOS: フォルダアクセスの許可ダイアログ</text>
+  <text x="40" y="414" class="body">保護フォルダ（書類・デスクトップなど）を読むと OS が出す</text>
+  <text x="40" y="432" class="cap">Orca の設定とは無関係。あとから「システム設定 → プライバシーとセキュリティ」で変えられる</text>
+
+  <!-- 段と右パネルを結ぶガイド -->
+  <path d="M664,154 H688 M664,294 H688 M664,402 H688" fill="none" stroke="#1A7F37" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- 右: ハンズオンでは -->
+  <rect x="688" y="80" width="168" height="364" rx="12" fill="#FFFFFF" stroke="#1A7F37" stroke-width="1.5"/>
+  <text x="772" y="107" class="head mid" fill="#1A7F37">ハンズオンでは</text>
+
+  <rect x="736" y="142" width="72" height="24" rx="999" fill="#DAFBE1" stroke="#1A7F37" stroke-width="1.5"/>
+  <text x="772" y="159" class="chip" fill="#1A7F37">手動</text>
+  <text x="772" y="184" class="cap mid">3 章で設定する</text>
+
+  <rect x="720" y="282" width="104" height="24" rx="999" fill="#DAFBE1" stroke="#1A7F37" stroke-width="1.5"/>
+  <text x="772" y="299" class="chip" fill="#1A7F37">既定のまま</text>
+  <text x="772" y="324" class="cap mid">確認を読んで許可</text>
+
+  <rect x="702" y="390" width="140" height="24" rx="999" fill="#DAFBE1" stroke="#1A7F37" stroke-width="1.5"/>
+  <text x="772" y="407" class="chip" fill="#1A7F37">リポの場所は許可</text>
+  <text x="772" y="432" class="cap mid">それ以外は不要</text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 288" width="880" height="288" role="img" aria-labelledby="title desc">
+  <title id="title">ハンズオンの道のり</title>
+  <desc id="desc">1 行のタイムライン。準備（約 30 分）は 1 前提条件、2 インストール、3 初期設定、4 サンプル取得。本編（約 60 分）は 5 プロジェクト追加、6 ワークツリー + Claude、7 レース開始、8 ⌘J で移動、9 差分を比べる、10 メモで直させる、11 コミット → PR、12 後片付け。付録（任意）は A Orca CLI、B トラブル対処、C Yolo の指針。1〜12 章の下にはチェックポイントの印がある。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9z" fill="#57606A"/>
+    </marker>
+    <!-- チェックポイントの印 -->
+    <g id="check">
+      <circle r="7" fill="#DAFBE1" stroke="#1A7F37" stroke-width="1.25"/>
+      <path d="M-3.5 0.5l2.5 2.5l4.5-5" fill="none" stroke="#1A7F37" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </defs>
+  <!-- 背景カード -->
+  <rect x="0.5" y="0.5" width="879" height="287" rx="12" fill="#FFFFFF" stroke="#D0D7DE"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif" fill="#1F2328" font-size="13">
+    <text x="24" y="40" font-size="20" font-weight="700">ハンズオンの道のり</text>
+    <text x="856" y="40" text-anchor="end" font-size="12" fill="#57606A">所要時間は目安。付録は必要なときだけ読む</text>
+
+    <!-- グループ（ブラケットと見出し） -->
+    <g fill="none" stroke="#57606A" stroke-width="1.25">
+      <path d="M47 108v-6h185v6"/>
+      <path d="M259 108v-6h397v6"/>
+      <path d="M683 108v-6h132v6"/>
+    </g>
+    <g font-weight="600" text-anchor="middle">
+      <text x="139.5" y="92">準備（約 30 分）</text>
+      <text x="457.5" y="92">本編（約 60 分）</text>
+      <text x="749" y="92">付録（任意）</text>
+    </g>
+
+    <!-- タイムライン -->
+    <line x1="60" y1="126" x2="826" y2="126" stroke="#57606A" stroke-width="1.75" marker-end="url(#arrow)"/>
+
+    <!-- ノード -->
+    <g stroke="#1F2328" stroke-width="1.5" fill="#FFFFFF">
+      <circle cx="60" cy="126" r="13"/><circle cx="113" cy="126" r="13"/><circle cx="166" cy="126" r="13"/><circle cx="219" cy="126" r="13"/>
+      <circle cx="272" cy="126" r="13"/><circle cx="325" cy="126" r="13"/><circle cx="378" cy="126" r="13"/><circle cx="431" cy="126" r="13"/>
+      <circle cx="484" cy="126" r="13"/><circle cx="537" cy="126" r="13"/><circle cx="590" cy="126" r="13"/><circle cx="643" cy="126" r="13"/>
+      <circle cx="696" cy="126" r="13"/><circle cx="749" cy="126" r="13"/><circle cx="802" cy="126" r="13"/>
+    </g>
+    <g font-size="12" font-weight="700" text-anchor="middle">
+      <text x="60" y="130.5">1</text><text x="113" y="130.5">2</text><text x="166" y="130.5">3</text><text x="219" y="130.5">4</text>
+      <text x="272" y="130.5">5</text><text x="325" y="130.5">6</text><text x="378" y="130.5">7</text><text x="431" y="130.5">8</text>
+      <text x="484" y="130.5">9</text><text x="537" y="130.5">10</text><text x="590" y="130.5">11</text><text x="643" y="130.5">12</text>
+      <text x="696" y="130.5">A</text><text x="749" y="130.5">B</text><text x="802" y="130.5">C</text>
+    </g>
+
+    <!-- チェックポイント（1〜12 章） -->
+    <use href="#check" x="60" y="158"/><use href="#check" x="113" y="158"/><use href="#check" x="166" y="158"/><use href="#check" x="219" y="158"/>
+    <use href="#check" x="272" y="158"/><use href="#check" x="325" y="158"/><use href="#check" x="378" y="158"/><use href="#check" x="431" y="158"/>
+    <use href="#check" x="484" y="158"/><use href="#check" x="537" y="158"/><use href="#check" x="590" y="158"/><use href="#check" x="643" y="158"/>
+
+    <!-- 章名までのリーダー線 -->
+    <g stroke="#D0D7DE" stroke-dasharray="2 2">
+      <line x1="60" y1="167" x2="60" y2="176"/><line x1="166" y1="167" x2="166" y2="176"/><line x1="272" y1="167" x2="272" y2="176"/><line x1="378" y1="167" x2="378" y2="176"/>
+      <line x1="484" y1="167" x2="484" y2="176"/><line x1="590" y1="167" x2="590" y2="176"/><line x1="696" y1="141" x2="696" y2="176"/><line x1="802" y1="141" x2="802" y2="176"/>
+      <line x1="113" y1="167" x2="113" y2="202"/><line x1="219" y1="167" x2="219" y2="202"/><line x1="325" y1="167" x2="325" y2="202"/><line x1="431" y1="167" x2="431" y2="202"/>
+      <line x1="537" y1="167" x2="537" y2="202"/><line x1="643" y1="167" x2="643" y2="202"/><line x1="749" y1="141" x2="749" y2="202"/>
+    </g>
+
+    <!-- 章名（上段: 奇数章、下段: 偶数章） -->
+    <g font-size="11" text-anchor="middle">
+      <text x="60" y="188">1 前提条件</text>
+      <text x="166" y="188">3 初期設定</text>
+      <text x="272" y="188">5 プロジェクト追加</text>
+      <text x="378" y="188">7 レース開始</text>
+      <text x="484" y="188">9 差分を比べる</text>
+      <text x="590" y="188">11 コミット → PR</text>
+      <text x="696" y="188">A Orca CLI</text>
+      <text x="802" y="188">C Yolo の指針</text>
+      <text x="113" y="214">2 インストール</text>
+      <text x="219" y="214">4 サンプル取得</text>
+      <text x="325" y="214">6 ワークツリー<tspan x="325" dy="1.4em">+ Claude</tspan></text>
+      <text x="431" y="214">8 ⌘J で移動</text>
+      <text x="537" y="214">10 メモで直させる</text>
+      <text x="643" y="214">12 後片付け</text>
+      <text x="749" y="214">B トラブル対処</text>
+    </g>
+
+    <!-- 凡例 -->
+    <use href="#check" x="40" y="258"/>
+    <text x="54" y="262" font-size="12" fill="#57606A">＝ 章末のチェックポイント（できたか確認してから次へ進む）</text>
+  </g>
+</svg>
