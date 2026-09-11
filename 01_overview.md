@@ -10,7 +10,9 @@
 **ADE（Agent Development Environment）** と呼んでいます。IDE の I（Integrated）を A（Agent）に置き換えた造語で、
 Claude Code や Codex のような CLI コーディングエージェントを **複数、同時に、互いに邪魔させずに走らせ、その成果を人が見比べて出荷する** ための道具です。
 
-### IDE との違いを一言で
+### IDE との違い
+
+![IDE と ADE の違い。IDE は自分がコードを書く 1 つの机。ADE では自分がレビュアーになり、複数のエージェントの作業台を見渡す](images/diagrams/08_ide-vs-ade.svg)
 
 IDE は「自分がコードを書くための机」です。Orca は「複数の作業者に仕事を振り、途中経過を横目で見ながら、上がってきた成果物を検品する机」です。
 机の上には作業者（エージェント）の数だけ作業台（worktree）が並び、それぞれにターミナル・ブラウザ・差分ビューが付いています。
@@ -27,77 +29,68 @@ IDE は「自分がコードを書くための机」です。Orca は「複数�
 
 `git worktree` は、1 つの `.git` に **作業ディレクトリを複数ぶら下げる** 仕組みです。ディレクトリごとに別ブランチを checkout できるので、A と B が同時に作業できます。
 
-```mermaid
-flowchart TB
-  subgraph before["これまで: clone 1 つ、ブランチを切り替えて使う"]
-    G1[".git"] --> D1["作業ディレクトリ 1 つ (checkout 中のブランチしか触れない)"]
-  end
-  subgraph after["git worktree: 1 つの .git に作業ディレクトリを複数"]
-    G2[".git"] --> D2["repo/ (main)"]
-    G2 --> D3["fix-tests-claude/ (ブランチ fix-tests-claude)"]
-    G2 --> D4["fix-tests-codex/ (ブランチ fix-tests-codex)"]
-  end
-```
+![git worktree の仕組み。従来は 1 つの作業ディレクトリでブランチを切り替える。worktree では 1 つの .git に main と 2 つの作業ディレクトリがぶら下がり、それぞれ別ブランチを同時に触れる](images/diagrams/04_git-worktree.svg)
 
 Orca は **タスク 1 つにつき worktree 1 つ** を自動で作ります。中身は本物の git worktree なので `git status` や `git rebase` を普通に打てます。
-サイドバーで worktree を削除するとディレクトリとブランチが一緒に消えます。未マージのコミットが残るブランチは「Preserved branches」に退避され、消すかどうかは人が決めます。
+ハンズオンでは、あなたが clone した `~/Documents/orca-handson` が本体（プライマリ）になり、ワークツリーは `~/orca/workspaces/orca-handson/<名前>` に作られます。
+
+サイドバーでワークツリーを削除すると、ディレクトリとローカルブランチが一緒に消えます。**コミットしていない変更はそのまま消えます。**
+コミット済みでまだマージされていないブランチだけは「Preserved branches」に退避され、消すかどうかは人が決めます。
 
 ---
 
 ## 3. 中核機能
 
-```mermaid
-flowchart LR
-  side["サイドバー: プロジェクトと worktree の一覧"]
-  subgraph wt["worktree ごとのタブとペイン"]
-    t1["ターミナル: Claude Code"]
-    t2["ターミナル: Codex"]
-    d1["Diff viewer と Annotate AI Diff"]
-    b1["ブラウザ (Chromium)"]
-  end
-  sc["Source Control: commit / push / PR"]
-  side --> wt --> sc
-```
+Orca の画面は「左サイドバーでワークツリーを選び、中央でエージェントと差分を見て、右パネルでコミットと PR を作る」という配置です。
 
-**worktree（作業台）**
+![Orca の画面構成。左サイドバーにプロジェクトとワークツリー、中央にターミナルと Changes のタブ、右パネルにファイル / Agent セッション履歴 / Source Control / PR、下にステータスバー](images/diagrams/05_orca-screen-layout.svg)
+
+### ワークツリー（作業台）
+
 Orca の日本語 UI では、登録したリポジトリを「プロジェクト」、worktree を「ワークツリー」または「ワークスペース」と呼びます。
-プロジェクトを選んで `⌘N` を押し、名前と使うエージェントを指定すると worktree ができます。ブランチ名は `<GitHub の ID>/<名前>` の形で、分岐元（base ref、通常 `origin/main`）は自動で決まります。作成先は既定で `~/orca/workspaces/<プロジェクト名>/<名前>` です。
+プロジェクトを選んで ⌘N を押し、名前と使うエージェントを指定すると worktree ができます。ブランチ名は `<GitHub の ID>/<名前>` の形で、分岐元（base ref、通常 `origin/main`）は自動で決まります。作成先は既定で `~/orca/workspaces/<プロジェクト名>/<名前>` です。
 
-**エージェントセッションと状態表示**
+### エージェントセッションと状態表示
+
 「1 つの CLI エージェントが 1 つのターミナルで 1 つの worktree で動いている」単位をセッションと呼びます。
 worktree 作成ダイアログの「Agent」欄でエージェントを選ぶだけで起動し、タブとサイドバーに同じ記号で状態が出ます。
 
 | 表示 | 意味 |
 |---|---|
 | スピナー | 作業中 |
-| 黄色いアイコン、`[thinking]` `[working]` の文字 | 考え中・実行中の詳細 |
 | ベル | 未読の完了通知がある（あなたの番） |
-| 緑のチェックまたはドット | 完了 |
-| 赤いドット | エラー、ブロック、中断 |
-| 灰色のドット | しばらく動いていない |
+| 緑のチェック | 完了 |
 
-**分割ペイン**
+エラーや停止中を含む一覧は [02_handson.md の 7-4](./02_handson.md#7-4-サイドバーで進み具合を見る) にあります。
+
+### 分割ペインとジャンプ
+
 タブを **右端にドラッグすると左右分割、下端なら上下分割** です。レイアウトは worktree ごとに保存されます。
-worktree 間の移動は `Cmd-J`、ファイルを開くのは `Cmd-P` です。
+worktree 間の移動は ⌘J（ジャンプパレット）、ファイルを開くのは ⌘P です。
 
-**Diff viewer と Annotate AI Diff**
-各 worktree に分岐元との差分ビューが付いています。`j` / `k` でファイル、`n` / `p` でハンクを移動し、`s` でステージします。
+### Diff viewer と Annotate AI Diff
+
+各 worktree に分岐元との差分ビューが付いています。`j` / `k` でファイル、`n` / `p` でハンク（hunk。ひと続きになった変更のかたまり）を移動し、`s` でステージします。
 行にマウスを乗せて行番号の左の「+」を押す（またはカーソルを置いて `c`）と、その行に Markdown でメモを書けます。
 diff 上部の「Send」（英語 UI では Send to agent）を押すと **全メモが 1 つのプロンプトにまとまってエージェントに届きます**。1 件ずつ送るより修正が一貫する、と公式は勧めています。
 
-**Source Control**
+### Source Control
+
 ハンク単位でステージし、コミットメッセージはメッセージ欄の AI アイコン（英語 UI では Generate with AI）で作れます。push は「ブランチを公開」で `origin` へ行い、黙って force push はしません。
 push 後は同じパネルの「PR を作成」で PR を作れます。GitHub 連携は設定 → 「連携」にあり、`gh` CLI のログインをそのまま使います。
 
-**worktree ごとのブラウザと Design Mode**
+### ワークツリーごとのブラウザと Design Mode（今日は使いません）
+
 各 worktree に本物の Chromium が付き、Design Mode で UI 要素をクリックするとその HTML とスクリーンショットがエージェントに送られます。
 
-**Orca CLI**
+### Orca CLI（付録 A で触れます）
+
 同梱の `orca` コマンド（設定 → 一般 → Orca CLI の「シェルコマンド」を ON にして `/usr/local/bin/orca` に登録）で、`orca worktree create` や `orca terminal read` などが打てます。
 **エージェント自身が worktree を切ったりブラウザを操作したりできる** のが ADE らしい点です。
 
-**動かす場所**
-既定は手元の Mac ですが、SSH 先で動かす構成、常時起動マシンに Orca サーバーを置いて PC・ブラウザ・スマホから繋ぐ構成もあります。今回は扱いません。
+### 動かす場所（今日は使いません）
+
+既定は手元の Mac ですが、SSH 先で動かす構成、常時起動マシンに Orca サーバーを置いて PC・ブラウザ・スマホから繋ぐ構成もあります。
 
 ---
 
@@ -105,13 +98,15 @@ push 後は同じパネルの「PR を作成」で PR を作れます。GitHub �
 
 公式ドキュメントでは 40 種類以上の CLI エージェントに対応しているとされ、**Claude Code、Codex、Cursor CLI** は「深い統合」扱いです。
 使用量とレート制限の残りがステータスバーに出て、複数アカウントも切り替えられます。
-Claude Code は `~/.claude` を、Codex は `~/.codex` をそのまま読むので、ターミナルで一度ログイン済みなら Orca 側の追加設定は不要です。
+初回起動時の取り込みで `~/.claude` と `~/.codex` が参照されるので、ターミナルで一度ログイン済みなら Orca 側でトークンを入れ直す必要はありません。
 
 ---
 
-## 5. 「3 エージェントをレースさせる」という使い方
+## 5. 複数エージェントを「レース」させる
 
 公式チュートリアルは最初の体験として、**同じタスクを複数エージェントに同時に解かせる** ことを勧めています。
+
+![レースの流れ。main から複数のワークツリーを作り、同じプロンプトを渡し、差分を見比べて良い方を選び、メモで仕上げて PR にする。残りは削除する](images/diagrams/01_race-flow.svg)
 
 1. 同じ分岐元から worktree を 2〜3 個作る
 2. それぞれ別のエージェントを起動し、同じプロンプトを貼る
@@ -133,7 +128,12 @@ Orca はコンボボックスからエージェントを起動するとき、**�
 Claude Code なら `--dangerously-skip-permissions`、Codex なら `--dangerously-bypass-approvals-and-sandbox` です。
 「worktree は使い捨てだから自由にやらせて diff で検品する」という設計思想ですが、ジュニアのうちは **エージェントが何をしようとしているかを確認プロンプトで読む経験** のほうが大事です。
 そのためハンズオンでは最初に **設定 → Agent → 「Agent の権限」を「手動」**（英語 UI では Agent Permissions → Manual）にします。
-「手動」にすると Orca はフラグを付けずに `claude` / `codex` を起動します。その先で確認プロンプトが出るかどうかは、各エージェント自身の設定に従います。
+
+「権限」に関わる設定は 3 つの層に分かれています。Orca の設定が決めるのは 1 層目だけです。
+
+![権限の 3 つの層。1 層目 Orca の「Agent の権限」は起動コマンドにフラグを付けるかだけを決める。2 層目はエージェント自身の権限モード。3 層目は macOS のフォルダアクセス許可](images/diagrams/02_permission-layers.svg)
+
+「手動」にすると Orca はフラグを付けずに `claude` / `codex` を起動します。その先で確認プロンプトが出るかどうかは、各エージェント自身の設定（2 層目）に従います。
 権限スキップを試すなら、業務リポではなく使い捨ての worktree で、と覚えてください。
 
 ### 業務リポで使う前のチェックリスト
@@ -142,7 +142,7 @@ Claude Code なら `--dangerously-skip-permissions`、Codex なら `--dangerousl
 - [ ] エージェントが `git push` や `rm -rf` のような取り消せない操作を確認なしにできる設定になっていないか
 - [ ] 社内コードやプロンプトを外部 LLM に送ることが所属組織のルールで許可されているか（Orca ではなく Claude Code / Codex 側の話です）
 - [ ] テレメトリの内容を確認し、必要なら無効化したか
-- [ ] worktree を削除したとき、未マージの変更が「Preserved branches」に残る挙動を理解しているか
+- [ ] worktree を削除したとき、未コミットの変更は消え、コミット済み・未マージのブランチだけが「Preserved branches」に残る挙動を理解しているか
 
 ### テレメトリ
 
